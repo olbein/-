@@ -1,0 +1,19 @@
+sudo apt update
+sudo apt install mdadm
+
+fdisk /dev/sde - gpt - write - yes - quit
+fdisk /dev/sdb - gpt - write - yes - quit
+fdisk /dev/sdc - gpt - write - yes - quit
+
+sudo mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sde /dev/sdb /dev/sdc
+
+cat /proc/mdstat
+
+mkfs.xfs /dev/md0
+
+sudo mkdir /mnt/raid5
+sudo mount /dev/md0 /mnt/raid5
+sudo nano /etc/fstab
+/##
+/dev/md0 /mnt/raid5 ext4 defaults 0 0
+##/

@@ -1,0 +1,15 @@
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 25 -m comment --comment SMTP_Blocked_to_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 53 -m comment --comment DNS_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 53 -m comment --comment DNS_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 111 -m comment --comment Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 111 -m comment --comment Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 123 -m comment --comment NTP_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 135 -m comment --comment Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 139 -m comment --comment NetBIOS_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 137 -m comment --comment NetBIOS_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 138 -m comment --comment NetBIOS_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 445 -m comment --comment NetBIOS_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 161 -m comment --comment SNMP_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p tcp -m tcp --dport 179 -m comment --comment BGP_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 1900 -m comment --comment UPnP_Blocked_for_local -j DROP
+iptables -A FORWARD -d 172.16.0.0/12 -p udp -m udp --dport 11211 -m comment --comment memcached_attacks_block_for_local -j DROP

@@ -1,0 +1,27 @@
+apt update
+apt install rsyslog
+
+systemctl start rsyslog
+systemctl enable rsyslog
+systemctl status rsyslog
+
+nano /etc/rsyslog.conf
+/##
+# provides UDP syslog reception
+module(load="imudp")
+input(type="imudp" port="514")
+
+# provides TCP syslog reception
+module(load="imtcp")
+input(type="imtcp" port="514")
+
+$template remote-incoming-logs,"/var/log/%HOSTNAME%/%PROGRAMNAME%.log"
+*.* ?remote-incoming-logs
+##/
+
+sudo systemctl restart rsyslog
+
+ufw allow 514/tcp
+ufw allow 514/udp
+ufw reload
+

@@ -1,0 +1,8 @@
+sudo useradd Admin
+sudo passwd Admin
+
+sudo useradd -m pupkin - Создание нового пользователя с домашней директорией в /home
+
+sudo useradd -m -s /bin/bash Admin - Создание пользователя с указанием оболочки (shell)
+
+sudo useradd -m -G adm,cdrom,wheel -s /bin/bash pupkin - Создать пользователя и добавить его в группы

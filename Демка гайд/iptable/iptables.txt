@@ -1,0 +1,47 @@
+iptables -A INPUT -i eth1 -p tcp -s 1.1.1.0/30 --dport 2222 -j DROP // Запрет на порт и ip
+iptables -t nat -A PREROUTING -p tcp -d 192.168.10.1 --dport 2222 -j  DNAT --to-destination 192.168.20.2:22 // Проброс портов
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT // Включение интернета
+iptables -A INPUT -p ospf -j ACCEPT // Разрешение на ospfd 
+iptables -A INPUT -p gre -j ACCEPT // Разрешение gre
+iptables -A INPUT -p udp -m multiport --dports 500,4500 -j ACCEPT // Разрешение IPSEK
+iptables -A INPUT -p esp -j ACCEPT // Разрешение IPSEK
+iptables -L -n -v // текущие правила
+iptables -F // Очистка iptables
+
+INPUT(вход трафика), FORWARD(пропуск трафика), OUTPUT(выход трафика)
+ACCEPT(разрешение), DROP(запрет)
+# разрешаем все соединения на петлевом интерфейсе lo
+iptables -A INPUT -i lo -j ACCEPT
+
+# разрешаем все установленные и связанные соединения:
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#отбрасываем все соединения с значением "INVALID"
+iptables -I INPUT -m state --state INVALID -j DROP
+
+#разрешаем входящий ICMP трафик (ping)
+iptables -A INPUT -p icmp -j ACCEPT
+
+#разрешаем себе доступ к SSH на порту 22:
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+#разрешаем себе доступ к FTP на порту 21:
+iptables -A INPUT -p tcp --dport 21 -j ACCEPT
+
+#открываем HTTP (80) порт tcp.
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+#открываем HTTPS (443) порт tcp.
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+### !!! действие по умолчанию !!! ###
+#разрешаем OUTPUT любых пакетов сервером
+iptables -P OUTPUT ACCEPT
+
+### !!! действие по умолчанию !!! ###
+#запрещаем FORWARD любых пакетов сервером 
+iptables -P FORWARD DROP
+
+### !!! действие по умолчанию !!! ###
+#запрещаем INPUT любых пакетов сервером
+iptables -P INPUT DROP

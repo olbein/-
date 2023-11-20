@@ -1,0 +1,33 @@
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens2f0: {}
+    bridges:
+        br0:
+            macaddress: ce:ce:ce:45:45:45
+            interfaces:
+                - ens2f0
+            addresses:
+                - 192.168.1.15/24
+            gateway4: 
+            nameservers:
+                addresses:
+                    - 77.88.8.8
+                    - 8.8.8.8
+            mtu: 1500
+            parameters:
+                stp: true
+                forward-delay: 4
+            dhcp4: false
+            dhcp6: false
+
+bridges — настройки для интерфейсов bridge.
+bridges br0 — настройка интерфейса br0.
+macaddress — физический адрес (MAC) интерфейса. Настройка важна для некоторых провайдеров VPS — без нее бридж может не заработать.
+interfaces — перечисление интерфейсов, из которых собираем мост. В данном примере ens2f0.
+addresses, gateway4, nameservers — сетевые настройки (IP-адрес, шлюз, сервер имен).
+mtu — одноименный параметр. Для сетей ethernet обычно равен 1500.
+parameters stp — включает или отключает устранение петель в сети. В данном примере включено.
+parameters forward-delay — время в секундах в течение которого мост будет оставаться в состояниях «Listening» и «Learning».
+dhcp4, dhcp6 — включает или отключает автоматическое получение IP-адреса. В нашем случае, отключает.

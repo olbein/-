@@ -1,0 +1,7 @@
+chmod 777 /home/user/file
+1 - root
+2 - group
+3 - others
+
+4 - read, 5 - read and execute, 6 - read and write, 7 - full rights
+

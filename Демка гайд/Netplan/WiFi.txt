@@ -1,0 +1,32 @@
+Scanning WI-FI
+apt install wireless-tools
+iwlist wlp2s0b1 scan | grep ESSID
+
+
+network:
+  version: 2
+  renderer: networkd
+  wifis:
+    wlp2s0b1:
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 192.168.2.10/24
+      routes:
+        - to: default
+          via: 192.168.2.1
+      nameservers:
+        addresses:
+          - 192.168.2.1
+          - 77.88.8.8
+      access-points:
+        "<имя WiFi сети (SSID)>":
+          password: "wifi_password"
+
+wifis — определяет настойки для WiFi.
+wlp2s0b1 — настройка для беспроводного сетевого адаптера.
+dhcp4, dhcp6 — включает или отключает автоматическое получение IP-адреса.
+addresses, routes, nameservers — настройка сети (IP-адрес, шлюз, сервер DNS).
+access-points — настройка для подключения к беспроводной сети.
+<имя WiFi сети (SSID)> — имя беспроводной сети, к которой будем подключаться.
+password — пароль для подключения к беспроводной сети.

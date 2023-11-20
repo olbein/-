@@ -1,0 +1,13 @@
+apt install cups
+
+cp /etc/cups/cupsd.conf /etc/cups/cupsd.conf.original
+chmod a-w /etc/cups/cupsd.conf.original
+
+Listen 192.168.20.2:631
+/etc/init.d/cups restart
+
+http://192.168.20.2:631/admin
+
+Если ошибка:
+sudo cupsctl --remote-any
+sudo /etc/init.d/cups restart

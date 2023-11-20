@@ -1,0 +1,17 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ens192:
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 192.168.1.1/24
+  vlans:
+    ens192.1:
+      id: 1
+      dhcp4: no
+      dhcp6: no
+      addresses:
+        - 172.16.1.1/24
+        

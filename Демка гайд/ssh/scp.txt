@@ -1,0 +1,3 @@
+scp /home/test.txt root@123.123.123.123:/directory
+
+scp -P 2222 /home/test.txt root@123.123.123.123:/directory

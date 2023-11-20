@@ -1,0 +1,14 @@
+sudo apt install openssh-server
+
+nano /etc/ssh/sshd_config
+
+Port 4365 - порт для подключения
+PermitRootLogin no - доступ для root
+MaxAuthTries 3 - Кол-во попыток аутентификации
+LoginGraceTime 20 - в сек. время, которое есть у пользователя для завершения аутентификации после первичного подключения к вашему серверу SSH
+PasswordAuthentication no - вход по паролю
+PermitEmptyPasswords no - вход по пустому паролю
+Banner /root/baner - Вывод сообщения при подключении
+
+sudo sshd -t
+systemctl restart sshd

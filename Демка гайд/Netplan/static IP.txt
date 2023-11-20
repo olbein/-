@@ -1,0 +1,14 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+address 192.168.1.35
+gateway 192.168.1.1
+netmask 255.255.255.0
+
+auto - указанный интерфейс необходимо запускать автоматически при загрузке системы
+iface	- интерфейс eth0 находится в диапазоне адресов IPv4 со статическим ip
+address	- статический ip адрес
+gateway	- шлюз по-умолчанию
+netmask	- маска сети

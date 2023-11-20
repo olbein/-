@@ -1,0 +1,13 @@
+ssh-keygen -t rsa
+
+cat ~/.ssh/id_rsa.pub
+
+ssh-copy-id username@remote_host
+or
+cat ~/.ssh/id_rsa.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+nano /etc/ssh/sshd_config
+PasswordAuthentication no
+PubkeyAuthentication yes
+
+systemctl restart ssh

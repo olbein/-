@@ -1,0 +1,20 @@
+nano /etc/rsyslog.conf
+
+/##
+#Enable sending system logs over UDP to rsyslog server
+*.* @rsyslog-server-ip:514
+
+#Enable sending system logs over TCP to rsyslog server
+*.* @@rsyslog-server-ip:514
+
+##Set disk queue when rsyslog server will be down:
+
+$ActionQueueFileName queue
+$ActionQueueMaxDiskSpace 1g
+$ActionQueueSaveOnShutdown on
+$ActionQueueType LinkedList
+$ActionResumeRetryCount -1
+##/
+
+sudo systemctl restart rsyslog
+ls -l /var/log/

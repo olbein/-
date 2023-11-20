@@ -1,0 +1,8 @@
+#Изменение владельца
+chown user /home/account
+chown -R lisa /home/account
+
+
+#Изменение владельца группы
+chown root:gg1 myfile
+

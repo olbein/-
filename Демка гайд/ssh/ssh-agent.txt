@@ -1,0 +1,23 @@
+ssh-agent - Он безопасно хранит в памяти все ваши ключи, не требует пароль постоянно, и его можно пробрасывать на удаленные сервера без особых усилий
+
+apt-get update
+apt-get -y install openssh-client
+
+nano ~/.profile
+eval `ssh-agent -s` (запустит ssh-agent, который выдаст необходимые переменные окружения для shell, которые будут экспортированы во все shell процессы пользователя.)
+env | grep SSH_
+
+nano ~/.ssh/config
+Host *
+    ForwardAgent yes
+    AddKeysToAgent yes
+    IdentityFile ~/.ssh/id_ecdsa
+    IdentityFile ~/.ssh/id_rsa
+
+ForwardAgent - разрешаем проброс агента на удаленные сервера
+AddKeysToAgent - добавляет ключи в агент
+Строки с IdentityFile указывают нужные ключи для использования клиентом ssh
+
+. ~/.profile - применение
+
+ssh-add -l - проверка

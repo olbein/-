@@ -1,0 +1,8 @@
+wget http://launchpadlibrarian.net/611216907/libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+wget http://launchpadlibrarian.net/474574266/bacula-common_9.4.2-2ubuntu5_amd64.deb
+wget http://launchpadlibrarian.net/474574270/bacula-fd_9.4.2-2ubuntu5_amd64.deb
+
+dpkg -i libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
+dpkg -i bacula-common_9.4.2-2ubuntu5_amd64.deb
+dpkg -i bacula-fd_9.4.2-2ubuntu5_amd64.deb
+

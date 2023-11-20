@@ -1,0 +1,21 @@
+nano /etc/modules
+ip_gre
+
+modprobe ip_gre
+
+nano /etc/network/interfaces
+
+auto gre30
+  iface gre30 inet tunnel
+  address 10.10.10.1
+  netmask 255.255.255.252
+  mode gre
+  local 198.51.100.1
+  endpoint 203.0.113.1
+  ttl 255
+
+post-up ip route add 192.168.222.0/24 via 10.10.10.2
+systemctl restart networking
+
+iptables -A INPUT -p gre -j ACCEPT
+iptables -A INPUT -p ipip -j ACCEPT

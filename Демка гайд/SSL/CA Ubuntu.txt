@@ -1,0 +1,39 @@
+Для начала сгенерируем приватный ключ и корневогой сертификат на ЦС в Linux:
+openssl req -newkey rsa:2048 -nodes -keyout ca.key -x509 -days 3654 -out ca.crt - создание закрытого ключа и корневого сертификата
+
+Генерация запроса на клиенте:
+openssl genrsa -out private.key 2048
+vi openssl.conf
+
+/##
+[ req ]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name  = dn
+req_extensions = req_extensions
+
+[dn]
+C=RU
+ST=Moscow
+L=Moscow
+O=IT
+OU=GG
+emailAddress=123@gmail.com
+CN=*.branch.work
+
+[req_extensions]
+subjectAltName = @alter_name
+
+[alter_name]
+DNS.1 = *.branch.work
+##/
+
+openssl req -new -key private.key -out request.csr -config openssl.conf
+
+Перекидываем request.csr на CA
+
+Подпись сертификата на CA:
+openssl x509 -req -in request.csr -CA ca.crt -CAkey ca.key -CAcreateserial -extensions req_extensions -extfile openssl.conf -out xert.crt -days 365
+
+Кидаем подписанный сертификат и корневой сертификат клиенту
